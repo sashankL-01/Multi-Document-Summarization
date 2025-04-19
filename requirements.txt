@@ -1,0 +1,17 @@
+transformers
+sentence-transformers
+hdbscan
+nltk
+scikit-learn
+matplotlib
+seaborn
+plotly
+wordcloud
+pandas
+openpyxl
+python-pptx
+pillow
+comtypes
+bs4
+PyPDF2
+gradiopython
