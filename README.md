@@ -1,4 +1,4 @@
-# Abstractive Text Summarization
+# Multi Document Summarization
 
 This project provides a multi-document summarization tool using state-of-the-art NLP models like BART and Longformer. It supports various file formats and generates summaries along with visualizations like dendrograms, t-SNE plots, TF-IDF plots, and word clouds.
 
