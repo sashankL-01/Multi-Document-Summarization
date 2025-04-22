@@ -46,9 +46,6 @@ import pptx
 import io
 from PIL import Image
 
-import comtypes.client
-import comtypes
-
 warnings.filterwarnings("ignore")
 
 
@@ -92,26 +89,6 @@ def extract_and_clean_text(file_path):
         root = tree.getroot()
         text = " ".join([elem.text for elem in root.iter() if elem.text])
     elif file_path.endswith(".pptx"):
-        from pptx import Presentation
-
-        prs = Presentation(file_path)
-        for slide in prs.slides:
-            for shape in slide.shapes:
-                if hasattr(shape, "text"):
-                    text += shape.text + " "
-    elif file_path.endswith(".ppt"):
-        comtypes.CoInitialize()
-        try:
-            powerpoint = comtypes.client.CreateObject("PowerPoint.Application")
-            powerpoint.Visible = 1
-            ppt = powerpoint.Presentations.Open(file_path)
-            pptx_path = file_path + "x"  # Save as .pptx
-            ppt.SaveAs(pptx_path, 24)  # 24 is the format for .pptx
-            ppt.Close()
-            powerpoint.Quit()
-            file_path = pptx_path  # Update file_path to the new .pptx file
-        finally:
-            comtypes.CoUninitialize()
         from pptx import Presentation
 
         prs = Presentation(file_path)
@@ -393,7 +370,7 @@ with gr.Blocks() as demo:
         with gr.Column():
             file_upload = gr.Files(label="Upload Your Files")
             gr.Markdown(
-                "### Supported File Types: 📄 `.docx` 📝 `.txt` 🌐 `.html` 📑 `.pdf` 📊 `.csv` 📈 `.xlsx` 🗂 `.json` 🗃 `.xml` 🎞 `.ppt/.pptx`",
+                "### Supported File Types: 📄 `.docx` 📝 `.txt` 🌐 `.html` 📑 `.pdf` 📊 `.csv` 📈 `.xlsx` 🗂 `.json` 🗃 `.xml` 🎞 `.pptx`",
                 elem_id="file-types-info",
             )
             summarize_btn = gr.Button("Summarize")
